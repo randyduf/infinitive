@@ -44,6 +44,7 @@ app.factory('thermostatEvents', function ($websocket) {
 app.controller('thermostatController', function($scope, $http, $interval, $location, thermostatEvents) {
   $scope.tstat = {};
   $scope.blower = {};
+  $scope.probes = null;
 
   var $wsUrl = "ws://" + $location.host() + ":" + $location.port() + "/api/ws";
 
@@ -52,6 +53,8 @@ app.controller('thermostatController', function($scope, $http, $interval, $locat
        $scope.tstat = msg.data;
     } else if (msg.source == "blower") {
        $scope.blower = msg.data;
+    } else if (msg.source == "probes") {
+       $scope.probes = msg.data;
     }
   });
 

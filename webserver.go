@@ -13,6 +13,7 @@ import (
 
 	"github.com/acd/infinitive/infinity"
 	"github.com/acd/infinitive/internal/assets"
+	"github.com/acd/infinitive/internal/probes"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 )
@@ -95,6 +96,14 @@ func (ws *webserver) buildEngine() *gin.Engine {
 	// The routes below are for backward compatibility
 	api.GET("/zone/1/airhandler", getAirHandler)
 	api.GET("/zone/1/heatpump", getHeatPump)
+
+	api.GET("/probes", func(c *gin.Context) {
+		if readings, ok := ws.api.Cache.Get(probes.CacheKey).(probes.Readings); ok {
+			c.JSON(200, readings)
+		} else {
+			c.AbortWithStatus(http.StatusServiceUnavailable)
+		}
+	})
 
 	api.GET("/zone/1/vacation", func(c *gin.Context) {
 		vac := infinity.TStatVacationParams{}

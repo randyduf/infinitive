@@ -83,6 +83,21 @@
     </div>
 
 
+        <div class="row row-centered" ng-show="probes">
+          <div class="col-xs-6">
+            <h5>{{ probes.top.label }}</h5>
+            <h1 ng-show="probes.top.ok">{{ probes.top.tempF | number:1 }}&deg;</h1>
+            <h1 ng-hide="probes.top.ok">--</h1>
+            <small class="text-danger" ng-hide="probes.top.ok">{{ probes.top.error }}</small>
+          </div>
+          <div class="col-xs-6">
+            <h5>{{ probes.bottom.label }}</h5>
+            <h1 ng-show="probes.bottom.ok">{{ probes.bottom.tempF | number:1 }}&deg;</h1>
+            <h1 ng-hide="probes.bottom.ok">--</h1>
+            <small class="text-danger" ng-hide="probes.bottom.ok">{{ probes.bottom.error }}</small>
+          </div>
+        </div>
+
       </div>
       <div class="col-xs-6 col-md-3 col-md-pull-6">
         <div class="col-xs-12 well">
